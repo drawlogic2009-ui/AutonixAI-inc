@@ -122,5 +122,15 @@ service cloud.firestore {
       allow update: if isAuthenticated() && resource.data.teacherId == request.auth.uid && request.resource.data.teacherId == request.auth.uid;
       allow delete: if isAuthenticated() && resource.data.teacherId == request.auth.uid;
     }
+
+    match /feedback/{feedbackId} {
+      allow create: if isAuthenticated() && 
+                       request.resource.data.userId == request.auth.uid &&
+                       request.resource.data.keys().hasAll(['userId', 'userEmail', 'rating', 'feedback', 'createdAt']) &&
+                       request.resource.data.keys().hasOnly(['userId', 'userEmail', 'rating', 'feedback', 'createdAt']) &&
+                       request.resource.data.rating is number && request.resource.data.rating >= 1 && request.resource.data.rating <= 5 &&
+                       request.resource.data.feedback is string && request.resource.data.feedback.size() > 0 && request.resource.data.feedback.size() < 2000;
+      allow read: if isAdmin();
+    }
   }
 }

@@ -1426,8 +1426,10 @@ export default function WebApp() {
               <GraduationCap className="w-5 h-5 text-white" />
             </div>
             {isSidebarExpanded && (
-              <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-teal-600 whitespace-nowrap">
-                LoomisAI{currentTier === 'pro' ? '.Pro' : currentTier === 'pro+' ? '.Pro+' : ''}
+              <span className="text-xl font-bold whitespace-nowrap">
+                LoomisAI
+                {currentTier === 'pro' && <span className="text-emerald-500">.Pro</span>}
+                {currentTier === 'pro+' && <span className="text-emerald-500">.Pro+mini</span>}
               </span>
             )}
           </div>
@@ -1455,14 +1457,14 @@ export default function WebApp() {
             <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-800 mb-2">
               <div className="flex items-center gap-3 mb-3">
                 {user?.photoURL ? (
-                  <img src={user.photoURL} alt={user.displayName || 'User'} className="w-10 h-10 rounded-full" referrerPolicy="no-referrer" />
+                  <img src={user.photoURL} alt={user.displayName || user.email || 'User'} className="w-10 h-10 rounded-full" referrerPolicy="no-referrer" />
                 ) : (
-                  <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400 font-bold">
-                    {user?.displayName?.charAt(0) || 'T'}
+                  <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400 font-bold uppercase">
+                    {user?.displayName?.charAt(0) || user?.email?.charAt(0) || 'T'}
                   </div>
                 )}
                 <div className="overflow-hidden">
-                  <p className="text-sm font-semibold truncate">{user?.displayName || 'Teacher'}</p>
+                  <p className="text-sm font-semibold truncate">{user?.displayName || user?.email || 'Teacher'}</p>
                   <p className="text-xs text-slate-500 truncate capitalize">{currentTier} Plan</p>
                 </div>
               </div>
@@ -2715,6 +2717,160 @@ export default function WebApp() {
               )}
             </div>
           )}
+
+          {activeTab === 'pricing' && (
+            <div className="max-w-6xl mx-auto space-y-8">
+              <div className="text-center space-y-4 mb-12">
+                <h1 className="text-4xl font-black tracking-tight">Choose Your Plan</h1>
+                <p className="text-xl text-slate-500">Unlock the full power of LoomisAI for your classroom.</p>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-8">
+                {/* Free Tier */}
+                <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col">
+                  <div className="mb-8">
+                    <h3 className="text-2xl font-bold mb-2">Free</h3>
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-4xl font-black">$0</span>
+                      <span className="text-slate-500">/month</span>
+                    </div>
+                    <p className="text-slate-500 mt-4">Perfect for trying out LoomisAI.</p>
+                  </div>
+                  <ul className="space-y-4 mb-8 flex-1">
+                    <li className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                      <span><strong>80 analysis</strong> per month</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                      <span>Refreshes monthly</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                      <span>Basic grading feedback</span>
+                    </li>
+                  </ul>
+                  <button 
+                    disabled={currentTier === 'free'}
+                    className="w-full py-3 rounded-xl font-bold border border-slate-200 dark:border-slate-700 disabled:opacity-50 disabled:bg-slate-50 dark:disabled:bg-slate-800"
+                  >
+                    {currentTier === 'free' ? 'Current Plan' : 'Downgrade'}
+                  </button>
+                </div>
+
+                {/* Pro Tier */}
+                <div className="bg-emerald-50 dark:bg-emerald-900/10 rounded-3xl p-8 border-2 border-emerald-500 shadow-xl relative flex flex-col transform md:-translate-y-4">
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-emerald-500 text-white px-4 py-1 rounded-full text-sm font-bold tracking-wide uppercase">
+                    Most Popular
+                  </div>
+                  <div className="mb-8">
+                    <h3 className="text-2xl font-bold text-emerald-700 dark:text-emerald-400 mb-2">Pro</h3>
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-4xl font-black">$12</span>
+                      <span className="text-slate-500">/month</span>
+                    </div>
+                    <p className="text-slate-600 dark:text-slate-400 mt-4">For teachers who grade daily.</p>
+                  </div>
+                  <ul className="space-y-4 mb-8 flex-1">
+                    <li className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                      <span><strong>250-300 analysis</strong> per day</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                      <span>Refreshes every day</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                      <span>Advanced AI highlights</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                      <span>Priority support</span>
+                    </li>
+                  </ul>
+                  <button 
+                    className="w-full py-3 rounded-xl font-bold bg-emerald-600 text-white hover:bg-emerald-700 transition-colors shadow-lg shadow-emerald-200 dark:shadow-none"
+                  >
+                    {currentTier === 'pro' ? 'Current Plan' : 'Upgrade to Pro'}
+                  </button>
+                </div>
+
+                {/* Pro+ Tier */}
+                <div className="bg-slate-900 dark:bg-black rounded-3xl p-8 border border-slate-800 text-white flex flex-col">
+                  <div className="mb-8">
+                    <h3 className="text-2xl font-bold text-amber-400 mb-2">Pro+</h3>
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-4xl font-black">$29</span>
+                      <span className="text-slate-400">/month</span>
+                    </div>
+                    <p className="text-slate-400 mt-4">The ultimate grading powerhouse.</p>
+                  </div>
+                  <ul className="space-y-4 mb-8 flex-1">
+                    <li className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-amber-400" />
+                      <span><strong>Unlimited</strong> analysis</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-amber-400" />
+                      <span>Includes <strong>Loomis Mini</strong></span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-amber-400" />
+                      <span>Custom rubrics & models</span>
+                    </li>
+                  </ul>
+                  <button 
+                    disabled
+                    className="w-full py-3 rounded-xl font-bold bg-slate-800 text-slate-400 cursor-not-allowed border border-slate-700"
+                  >
+                    Coming Soon
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'feedback' && (
+            <div className="max-w-3xl mx-auto space-y-8">
+              <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+                <div className="p-6 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-900/20 dark:to-blue-900/20">
+                  <h2 className="text-2xl font-bold text-indigo-900 dark:text-indigo-100">Rate & Report Bugs</h2>
+                  <p className="text-indigo-600 dark:text-indigo-300 mt-2">Your feedback helps us make LoomisAI better for everyone.</p>
+                </div>
+                <div className="p-8 space-y-8">
+                  
+                  {/* Rating Section */}
+                  <div>
+                    <label className="block text-sm font-bold mb-4">How would you rate your experience?</label>
+                    <div className="flex gap-2">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <button key={star} className="p-2 text-slate-300 hover:text-amber-400 transition-colors">
+                          <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                          </svg>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Bug Report Section */}
+                  <div>
+                    <label className="block text-sm font-bold mb-2">Report a Bug or Suggest a Feature</label>
+                    <textarea 
+                      className="w-full h-32 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-indigo-500 outline-none resize-none"
+                      placeholder="Describe the issue you encountered or the feature you'd like to see..."
+                    ></textarea>
+                  </div>
+
+                  <button className="px-6 py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200 dark:shadow-none">
+                    Submit Feedback
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
           {activeTab === 'settings' && (
             <div className="max-w-4xl mx-auto space-y-8">
               <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
@@ -2730,12 +2886,15 @@ export default function WebApp() {
                         <span className="px-2.5 py-1 bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300 text-xs font-bold rounded-full uppercase tracking-wider">Current</span>
                       </div>
                       <p className="text-slate-600 dark:text-slate-400">
-                        {currentTier === 'free' && "Limited analysis (15-20/day)."}
-                        {currentTier === 'pro' && "Up to 300 files/day with AI highlights and faster analysis."}
-                        {currentTier === 'pro+' && "Unlimited fast analysis with Gemini Pro."}
+                        {currentTier === 'free' && "80 analysis per month. Refreshes monthly."}
+                        {currentTier === 'pro' && "250-300 analysis per day. Refreshes every day."}
+                        {currentTier === 'pro+' && "Unlimited analysis + Loomis Mini."}
                       </p>
                     </div>
-                    <button className="px-6 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm">
+                    <button 
+                      onClick={() => window.location.href = '/#pricing'}
+                      className="px-6 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm"
+                    >
                       Manage Plan
                     </button>
                   </div>
@@ -2748,7 +2907,9 @@ export default function WebApp() {
                   <p className="text-slate-500 text-sm mt-1">Help us improve the application</p>
                 </div>
                 <div className="p-6 space-y-4">
-                  <button className="w-full flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-700 hover:bg-emerald-50/50 dark:hover:bg-emerald-900/10 transition-all group">
+                  <button 
+                    onClick={() => window.location.href = '/#feedback'}
+                    className="w-full flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-700 hover:bg-emerald-50/50 dark:hover:bg-emerald-900/10 transition-all group">
                     <div className="flex items-center gap-4">
                       <div className="w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 dark:text-amber-400">
                         <Star className="w-5 h-5" />
@@ -2761,7 +2922,9 @@ export default function WebApp() {
                     <ExternalLink className="w-5 h-5 text-slate-400 group-hover:text-emerald-500 transition-colors" />
                   </button>
 
-                  <button className="w-full flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-700 hover:bg-emerald-50/50 dark:hover:bg-emerald-900/10 transition-all group">
+                  <button 
+                    onClick={() => window.location.href = '/#feedback'}
+                    className="w-full flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-700 hover:bg-emerald-50/50 dark:hover:bg-emerald-900/10 transition-all group">
                     <div className="flex items-center gap-4">
                       <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
                         <Bug className="w-5 h-5" />
