@@ -23,6 +23,10 @@ export default function App() {
   const [user, setUser] = useState<User | null>(null);
   const [darkMode, setDarkMode] = useState(false);
   
+  // The URL to your actual web app. 
+  // You can set this in Vercel as an Environment Variable named VITE_WEB_APP_URL
+  const WEB_APP_URL = import.meta.env.VITE_WEB_APP_URL || "https://your-actual-app-url.com";
+  
   // Form state
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -97,7 +101,7 @@ export default function App() {
     { id: 'dashboard', label: 'Home' },
     { id: 'services', label: 'Research' },
     { id: 'about', label: 'About' },
-    ...(user ? [{ id: 'about-app', label: 'About App' }, { id: 'download', label: 'Download' }] : []),
+    ...(user ? [{ id: 'about-app', label: 'About App' }, { id: 'download', label: 'Access App' }] : []),
   ];
 
   return (
@@ -154,7 +158,7 @@ export default function App() {
                 onClick={() => setShowLogin(true)}
                 className="bg-black text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-gray-800 transition-colors"
               >
-                Try GradeAI
+                Try LoomisAI
               </button>
             )}
           </div>
@@ -204,7 +208,7 @@ export default function App() {
                     }}
                     className="bg-black text-white px-8 py-4 rounded-full font-medium hover:bg-gray-800 transition-colors flex items-center gap-2 text-lg"
                   >
-                    Try GradeAI.pro <ArrowRight size={20} />
+                    Try LoomisAI <ArrowRight size={20} />
                   </button>
                 </div>
               </div>
@@ -244,7 +248,7 @@ export default function App() {
               
               <div className="grid md:grid-cols-2 gap-6">
                 {[
-                  { title: 'Educational Technology', desc: 'Building tools like GradeAI.pro to support teachers and enhance the learning experience for students.', color: 'bg-blue-500' },
+                  { title: 'Educational Technology', desc: 'Building tools like LoomisAI to support teachers and enhance the learning experience for students.', color: 'bg-blue-500' },
                   { title: 'Workflow Automation', desc: 'Creating intelligent agents that handle repetitive tasks, freeing up humans for creative work.', color: 'bg-purple-500' },
                   { title: 'Accessibility Tools', desc: 'Leveraging computer vision and natural language processing to make the digital world more accessible.', color: 'bg-green-500' },
                   { title: 'Open Source Research', desc: 'Contributing findings and lightweight models back to the community to foster collaborative innovation.', color: 'bg-orange-500' }
@@ -322,16 +326,16 @@ export default function App() {
           )}
           {activeTab === 'about-app' && user && (
             <section className="space-y-16 py-12">
-              {/* About GradeAI.pro Story */}
+              {/* About LoomisAI Story */}
               <div className="space-y-12">
                 <div className="text-center space-y-6 max-w-3xl mx-auto">
                   <div className="w-16 h-16 rounded-2xl flex items-center justify-center bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg mx-auto mb-6">
                     <GraduationCap size={32} />
                   </div>
-                  <h1 className={`text-4xl font-bold tracking-tight ${darkMode ? 'text-white' : 'text-gray-900'}`}>GradeAI.pro</h1>
+                  <h1 className={`text-4xl font-bold tracking-tight ${darkMode ? 'text-white' : 'text-gray-900'}`}>LoomisAI</h1>
                   <h2 className={`text-5xl font-bold tracking-tighter ${darkMode ? 'text-white' : 'text-gray-900'}`}>Built out of curiosity. <br/>Made to help people.</h2>
                   <p className={`text-xl ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                    AutonixAI is a student-led company driven by a simple question: "How can AI be used to make people's lives better?" GradeAI.pro is the first answer. Seeing teachers drowning in paperwork inspired the creation of a tool designed to give them their weekends back.
+                    AutonixAI is a student-led company driven by a simple question: "How can AI be used to make people's lives better?" LoomisAI is the first answer. Seeing teachers drowning in paperwork inspired the creation of a tool designed to give them their weekends back.
                   </p>
                 </div>
 
@@ -376,31 +380,33 @@ export default function App() {
           )}
           {activeTab === 'download' && user && (
             <section className="space-y-16">
-              {/* Download Section */}
+              {/* Access Section */}
               <div className={`space-y-6 pt-12 border-t ${darkMode ? 'border-gray-800' : 'border-gray-100'}`}>
-                <h2 className={`text-4xl font-medium tracking-tighter ${darkMode ? 'text-white' : 'text-gray-900'}`}>Get the Extension</h2>
+                <h2 className={`text-4xl font-medium tracking-tighter ${darkMode ? 'text-white' : 'text-gray-900'}`}>Get Started</h2>
                 <p className={`text-lg max-w-3xl ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                  The flagship product, GradeAI.pro, is an intelligent browser extension built to give teachers their weekends back.
+                  Access the LoomisAI Web App for free, or upgrade to Pro to unlock our powerful browser extension.
                 </p>
                 <div className="grid md:grid-cols-2 gap-8 mt-8">
                   <div className={`p-8 border rounded-2xl shadow-sm hover:shadow-md transition-shadow ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 ${darkMode ? 'bg-gray-900 text-blue-400' : 'bg-blue-50 text-blue-600'}`}>
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                     </div>
-                    <h3 className={`text-2xl font-medium mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>GradeAI.pro for Chrome</h3>
-                    <p className={`mb-6 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>The ultimate AI assistant extension. Grade, analyze, and optimize your workflow directly from your browser.</p>
-                    <button className="bg-blue-600 text-white px-6 py-2.5 rounded-lg font-medium hover:bg-blue-700 transition-colors w-full sm:w-auto flex items-center justify-center gap-2">
-                      Add to Chrome <span className="text-blue-200 text-sm">It's Free</span>
+                    <h3 className={`text-2xl font-medium mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>LoomisAI Web App</h3>
+                    <p className={`mb-6 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>The ultimate AI assistant. Grade, analyze, and optimize your workflow directly from our powerful web dashboard.</p>
+                    <button 
+                      onClick={() => window.location.href = WEB_APP_URL} 
+                      className="bg-blue-600 text-white px-6 py-2.5 rounded-lg font-medium hover:bg-blue-700 transition-colors w-full sm:w-auto flex items-center justify-center gap-2">
+                      Open Web App <span className="text-blue-200 text-sm">Free</span>
                     </button>
                   </div>
-                  <div className={`p-8 border rounded-2xl shadow-sm hover:shadow-md transition-shadow opacity-70 ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
-                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 ${darkMode ? 'bg-gray-900 text-gray-400' : 'bg-gray-50 text-gray-600'}`}>
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+                  <div className={`p-8 border rounded-2xl shadow-sm hover:shadow-md transition-shadow ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 ${darkMode ? 'bg-gray-900 text-purple-400' : 'bg-purple-50 text-purple-600'}`}>
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>
                     </div>
-                    <h3 className={`text-2xl font-medium mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Firefox & Edge</h3>
-                    <p className={`mb-6 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Support for Firefox, Microsoft Edge, and Safari is currently in development. Join the waitlist!</p>
-                    <button className={`px-6 py-2.5 rounded-lg font-medium transition-colors w-full sm:w-auto ${darkMode ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
-                      Join Waitlist
+                    <h3 className={`text-2xl font-medium mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>LoomisAI Pro Extension</h3>
+                    <p className={`mb-6 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Grade assignments anywhere on the web with our Chrome extension. Exclusive to LoomisAI Pro members.</p>
+                    <button className={`px-6 py-2.5 rounded-lg font-medium transition-colors w-full sm:w-auto ${darkMode ? 'bg-purple-600 text-white hover:bg-purple-700' : 'bg-purple-600 text-white hover:bg-purple-700'}`}>
+                      Upgrade to Pro
                     </button>
                   </div>
                 </div>
@@ -495,7 +501,7 @@ export default function App() {
                     {isSignUp ? 'Create an account' : 'Welcome back'}
                   </h2>
                   <p className={`text-sm mt-2 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-                    {isSignUp ? 'Sign up for your GradeAI.pro account' : 'Sign in to your GradeAI.pro account'}
+                    {isSignUp ? 'Sign up for your LoomisAI account' : 'Sign in to your LoomisAI account'}
                   </p>
                 </div>
 
