@@ -1427,7 +1427,7 @@ export default function WebApp() {
             </div>
             {isSidebarExpanded && (
               <span className="text-xl font-bold whitespace-nowrap">
-                LoomisAI
+                AutonixAI.inc
                 {currentTier === 'pro' && <span className="text-emerald-500">.Pro</span>}
                 {currentTier === 'pro+' && <span className="text-emerald-500">.Pro+mini</span>}
               </span>
@@ -2966,9 +2966,14 @@ export default function WebApp() {
         {/* Footer */}
         <footer className="mt-auto border-t border-slate-200 dark:border-slate-800 py-8 px-6 text-center text-slate-500 dark:text-slate-400 no-print">
           <div className="max-w-7xl mx-auto flex flex-col items-center justify-center space-y-2">
-            <h4 className="text-lg font-bold text-slate-900 dark:text-slate-100">LoomisAI</h4>
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded flex items-center justify-center bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-sm">
+                <GraduationCap size={14} />
+              </div>
+              <h4 className="text-lg font-bold text-slate-900 dark:text-slate-100">Autonix AI</h4>
+            </div>
             <p className="text-sm">Built out of curiosity to help people.</p>
-            <p className="text-xs pt-2">© 2026 LoomisAI. All rights reserved.</p>
+            <p className="text-xs pt-2">© 2026 Autonix AI. All rights reserved.</p>
           </div>
         </footer>
       </main>

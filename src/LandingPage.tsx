@@ -640,10 +640,10 @@ export default function LandingPage() {
             <div className="w-6 h-6 rounded flex items-center justify-center bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-sm">
               <GraduationCap size={14} />
             </div>
-            <span className={`font-bold text-lg ${darkMode ? 'text-white' : 'text-gray-900'}`}>LoomisAI</span>
+            <span className={`font-bold text-lg ${darkMode ? 'text-white' : 'text-gray-900'}`}>Autonix AI</span>
           </div>
           <p className={darkMode ? 'text-gray-400' : 'text-gray-600'}>Built out of curiosity to help people.</p>
-          <p className={`text-sm mt-3 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>© {new Date().getFullYear()} LoomisAI. All rights reserved.</p>
+          <p className={`text-sm mt-3 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>© {new Date().getFullYear()} Autonix AI. All rights reserved.</p>
         </div>
       </footer>
 
