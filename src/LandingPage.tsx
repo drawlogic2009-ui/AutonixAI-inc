@@ -36,6 +36,8 @@ export default function LandingPage() {
   const [rating, setRating] = useState(0);
   const [feedbackText, setFeedbackText] = useState('');
 
+  const [notification, setNotification] = useState<string | null>(null);
+
   const handleSubmitFeedback = async () => {
     if (!user) return;
     setLoading(true);
@@ -49,10 +51,12 @@ export default function LandingPage() {
       });
       setRating(0);
       setFeedbackText('');
-      alert('Feedback submitted successfully!');
+      setNotification('Feedback submitted successfully!');
+      setTimeout(() => setNotification(null), 3000);
     } catch (err) {
       console.error('Error submitting feedback:', err);
-      alert('Failed to submit feedback.');
+      setNotification('Failed to submit feedback.');
+      setTimeout(() => setNotification(null), 3000);
     } finally {
       setLoading(false);
     }
@@ -636,10 +640,10 @@ export default function LandingPage() {
             <div className="w-6 h-6 rounded flex items-center justify-center bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-sm">
               <GraduationCap size={14} />
             </div>
-            <span className={`font-bold text-lg ${darkMode ? 'text-white' : 'text-gray-900'}`}>AutonixAI</span>
+            <span className={`font-bold text-lg ${darkMode ? 'text-white' : 'text-gray-900'}`}>LoomisAI</span>
           </div>
           <p className={darkMode ? 'text-gray-400' : 'text-gray-600'}>Built out of curiosity to help people.</p>
-          <p className={`text-sm mt-3 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>© {new Date().getFullYear()} AutonixAI. All rights reserved.</p>
+          <p className={`text-sm mt-3 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>© {new Date().getFullYear()} LoomisAI. All rights reserved.</p>
         </div>
       </footer>
 

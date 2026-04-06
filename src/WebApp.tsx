@@ -2966,9 +2966,9 @@ export default function WebApp() {
         {/* Footer */}
         <footer className="mt-auto border-t border-slate-200 dark:border-slate-800 py-8 px-6 text-center text-slate-500 dark:text-slate-400 no-print">
           <div className="max-w-7xl mx-auto flex flex-col items-center justify-center space-y-2">
-            <h4 className="text-lg font-bold text-slate-900 dark:text-slate-100">AutonixAI</h4>
+            <h4 className="text-lg font-bold text-slate-900 dark:text-slate-100">LoomisAI</h4>
             <p className="text-sm">Built out of curiosity to help people.</p>
-            <p className="text-xs pt-2">© 2026 AutonixAI. All rights reserved.</p>
+            <p className="text-xs pt-2">© 2026 LoomisAI. All rights reserved.</p>
           </div>
         </footer>
       </main>
