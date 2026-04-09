@@ -470,6 +470,15 @@ export default function WebApp() {
     }
   };
 
+  const handleDeleteReport = async (reportId: string) => {
+    if (!window.confirm("Are you sure you want to delete this report? This action cannot be undone.")) return;
+    try {
+      await deleteDoc(doc(db, 'reports', reportId));
+    } catch (error) {
+      console.error("Error deleting report:", error);
+    }
+  };
+
   useEffect(() => {
     if (!user) return;
 
@@ -1865,14 +1874,22 @@ export default function WebApp() {
                         >
                           <div className="flex justify-between items-start mb-4">
                             <h4 className="text-lg font-bold group-hover:text-indigo-600 transition-colors">{r.title}</h4>
-                            <span className={cn(
-                              "px-2 py-1 text-[10px] font-bold uppercase rounded",
-                              r.status === 'completed' ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600' :
-                              r.status === 'processing' ? 'bg-amber-50 dark:bg-amber-900/30 text-amber-600' :
-                              'bg-red-50 dark:bg-red-900/30 text-red-600'
-                            )}>
-                              {r.status}
-                            </span>
+                            <div className="flex items-center gap-2">
+                              <span className={cn(
+                                "px-2 py-1 text-[10px] font-bold uppercase rounded",
+                                r.status === 'completed' ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600' :
+                                r.status === 'processing' ? 'bg-amber-50 dark:bg-amber-900/30 text-amber-600' :
+                                'bg-red-50 dark:bg-red-900/30 text-red-600'
+                              )}>
+                                {r.status}
+                              </span>
+                              <button 
+                                onClick={(e) => { e.stopPropagation(); handleDeleteReport(r.id); }}
+                                className="text-slate-400 hover:text-red-600 transition-colors"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            </div>
                           </div>
                           <p className="text-sm text-slate-500 mb-4 line-clamp-2">{r.description}</p>
                           <div className="flex items-center justify-between text-xs text-slate-400">
@@ -1914,7 +1931,7 @@ export default function WebApp() {
                       <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
                         <h3 className="font-bold text-lg mb-4">Overall Performance</h3>
                         <div className="h-[250px]">
-                          <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+                          <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                             <PieChart>
                               <Pie
                                 data={batchAnalysisData.overallChartData}
